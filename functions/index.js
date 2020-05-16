@@ -73,7 +73,9 @@ exports.helloWorld = functions.https.onRequest((request, res) => {
                 userProfiles["profileData"] = {};
                 for (var key in kv) {
                     if (kv.hasOwnProperty(key)) {
-                        userProfiles["profileData"][key] = kv[key];
+                        if (key.startsWith("profileData")) {
+                            userProfiles["profileData"][key.substring(12)] = kv[key];
+                        }
                     }
                 }
                 payload.push(userProfiles);
