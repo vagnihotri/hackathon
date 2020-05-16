@@ -28,9 +28,15 @@ exports.helloWorld = functions.https.onRequest((request, res) => {
             console.log(type);
         }
 
-        let region = profiles[0].key_values["region"];
+        if (typeof profiles[0].key_values !== 'undefined' &&
+            profiles[0].key_values["region"] !== 'undefined') {
+            let region = profiles[0].key_values["region"];
+        } else {
+            region = "eu1";
+        }
+
         if (region.indexOf(1) > -1) {
-            region = region.substring(0,2);
+            region = region.substring(0, 2);
         }
 
         console.log(region);
