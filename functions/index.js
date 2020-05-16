@@ -28,6 +28,13 @@ exports.helloWorld = functions.https.onRequest((request, res) => {
             console.log(type);
         }
 
+        let region = profiles[0].key_values["region"];
+        if (region.indexOf(1) > -1) {
+            region = region.substring(0,2);
+        }
+
+        console.log(region);
+
         var payload = [];
 
         profiles.forEach(profile => {
@@ -83,7 +90,7 @@ exports.helloWorld = functions.https.onRequest((request, res) => {
                 let events = {
                     "d": payload
                 }
-                res.send(uploadModule.callApi(events, request.get('X-CleverTap-Account-Id'), request.get('X-CleverTap-Passcode')));
+                res.send(uploadModule.callApi(events, request.get('X-CleverTap-Account-Id'), request.get('X-CleverTap-Passcode'), region));
             }
         });
     });
