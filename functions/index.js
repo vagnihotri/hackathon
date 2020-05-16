@@ -9,7 +9,7 @@ const uploadModule = require('./uploadEvents');
 //  response.send("Hello from Firebase!");
 // });
 
-exports.helloWorld = functions.https.onRequest((request, res) => {
+exports.ctwebhookendpoint = functions.https.onRequest((request, res) => {
 
     if (request.method === 'PUT') {
         return res.status(403).send('Forbidden!');
