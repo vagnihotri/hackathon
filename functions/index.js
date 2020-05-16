@@ -34,7 +34,7 @@ exports.ctwebhookendpoint = functions.https.onRequest((request, res) => {
             region = profiles[0].key_values["region"];
         }
 
-        if (region.indexOf(1) > -1) {
+        if (region.indexOf("1") > -1) {
             region = region.substring(0, 2);
         }
 
