@@ -13,7 +13,7 @@ exports.callApi = function(event, actId, passcode, region) {
         var dataString = JSON.stringify(event);
 
         var options = {
-            url: `https://${region}1.api.clevertap.com/1/upload`,
+            url: `https://${region}.api.clevertap.com/1/upload`,
             method: 'POST',
             headers: headers,
             body: dataString
