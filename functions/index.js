@@ -28,17 +28,8 @@ exports.ctwebhookendpoint = functions.https.onRequest((request, res) => {
             console.log(type);
         }
 
-        let region = "eu1";
-        if (typeof profiles[0].key_values !== 'undefined' &&
-            profiles[0].key_values["region"] !== 'undefined') {
-            region = profiles[0].key_values["region"];
-        }
+        let region = profiles[0].key_values["region"];
 
-        if (region.indexOf("1") > -1) {
-            region = region.substring(0, 2);
-        }
-
-        console.log(region);
 
         var payload = [];
 
