@@ -20,18 +20,12 @@ exports.helloWorld = functions.https.onRequest((request, res) => {
     });
 
     return cors(request, res, () => {
-        console.log(request.method);
-        console.log(request.body);
-        console.log(request.query);
-
-
-
-
         var profiles = request.body.profiles;
         var type;
 
         if (typeof profiles !== 'undefined' && profiles.length > 0) {
             type = profiles[0].key_values["type"];
+            console.log(type);
         }
 
         var payload = [];
@@ -61,6 +55,28 @@ exports.helloWorld = functions.https.onRequest((request, res) => {
                     }
                 }
                 payload.push(event);
+
+                let events = {
+                    "d": payload
+                }
+                res.send(uploadModule.callApi(events, request.get('X-CleverTap-Account-Id'), request.get('X-CleverTap-Passcode')));
+            } else if (type === "profile") {
+                let userProfiles = {};
+                if (typeof profile.objectId !== 'undefined') {
+                    userProfiles["objectId"] = profile.objectId;
+                } else if (typeof profile.identity !== 'undefined') {
+                    userProfiles["identity"] = profile.identity;
+                } else if (typeof profile.email !== 'undefined') {
+                    userProfiles["identity"] = profile.email;
+                }
+                userProfiles["type"] = kv["type"];
+                userProfiles["profileData"] = {};
+                for (var key in kv) {
+                    if (kv.hasOwnProperty(key)) {
+                        userProfiles["profileData"][key] = kv[key];
+                    }
+                }
+                payload.push(userProfiles);
 
                 let events = {
                     "d": payload
