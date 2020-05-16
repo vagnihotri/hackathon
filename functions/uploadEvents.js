@@ -3,7 +3,6 @@ var request = require('request');
 
 exports.callApi = function(event, actId, passcode, region) {
 
-    region = 'eu1';
     return new Promise((resolve, reject) => {
         var headers = {
             'X-CleverTap-Account-Id': actId,
@@ -14,7 +13,7 @@ exports.callApi = function(event, actId, passcode, region) {
         var dataString = JSON.stringify(event);
 
         var options = {
-            url: `https://${region}.api.clevertap.com/1/upload`,
+            url: `https://${region}1.api.clevertap.com/1/upload`,
             method: 'POST',
             headers: headers,
             body: dataString
